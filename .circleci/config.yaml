@@ -3,16 +3,13 @@ jobs:
   build:
     docker:
       - image: circleci/node:carbon
-    working_directory: ~/repo
+    working_directory: ~/rubix
+    steps:
     steps:
       - checkout
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
-      - run: yarn install
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-        
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+      - run:
+          name: install-dependencies
+          command: npm install
