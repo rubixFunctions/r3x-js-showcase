@@ -21,6 +21,6 @@
   },
   "homepage": "https://github.com/rubixFunctions/r3x-js-showcase#readme",
   "dependencies": {
-    "@rubixfunctions/r3x-js-sdk": "0.0.7"
+    "@rubixfunctions/r3x-js-sdk": "0.0.9"
   }
 }
