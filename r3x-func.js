@@ -1,4 +1,4 @@
-const r3x = require('@rubixfunctions/r3x-js-sdk/dist/src/r3x')
+const r3x = require('@rubixfunctions/r3x-js-sdk')
 
 let schema
 r3x.execute(function(){
