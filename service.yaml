@@ -1,7 +1,7 @@
 apiVersion: serving.knative.dev/v1alpha1
 kind: Service
 metadata:
-  name: r3x-javascript-showcase
+  name: rubixfunctions
   namespace: default
 spec:
   runLatest:
@@ -9,7 +9,4 @@ spec:
       revisionTemplate:
         spec:
           container:
-            image: quay.io/ciaranroche/r3x-js-hello-world 
-            env:
-            - name: TARGET
-              value: "Node.js Sample v1"
+            image: quay.io/rubixfunctions/r3x-js-showcase

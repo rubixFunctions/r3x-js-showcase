@@ -1,26 +1,19 @@
 {
-  "name": "r3x-js-showcase",
-  "version": "0.0.1",
-  "description": "r3x JS Showcase Application",
-  "main": "index.js",
-  "scripts": {
-    "start": "node r3x-func.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rubixFunctions/r3x-js-showcase.git"
-  },
-  "keywords": [
-    "javascript",
-    "knative"
-  ],
-  "author": "ciaran roche",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/rubixFunctions/r3x-js-showcase/issues"
-  },
-  "homepage": "https://github.com/rubixFunctions/r3x-js-showcase#readme",
-  "dependencies": {
-    "@rubixfunctions/r3x-js-sdk": "0.0.9"
-  }
-}
+		"name": "js-showcase",
+		"version": "0.0.1",
+		"description": "r3x Knative Function",
+		"main": "r3x-func.js",
+		"scripts": {
+		  "start": "node r3x-func.js"
+		},
+		"keywords": [
+		  "javascript",
+		  "knative",
+		  "kubernetes",
+		  "serverless"
+		],
+		"dependencies": {
+		  "@rubixfunctions/r3x-js-sdk": "0.0.9"
+		}
+	  }
+	  
