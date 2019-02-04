@@ -5,8 +5,8 @@
 
 ## Getting Started
 ```
-$ docker pull quay.io/ciaranroche/r3x-js-hello-world
-$ docker run -t -p 8080:8080 quay.io/ciaranroche/r3x-js-hello-world
+$ docker pull quay.io/rubixfunctions/r3x-js-showcase
+$ docker run -t -p 8080:8080 quay.io/rubixfunctions/r3x-js-showcase
 ```
 Once running POST request to `localhost:8080`
 

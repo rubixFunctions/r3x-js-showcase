@@ -2,11 +2,9 @@ FROM node:alpine
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY . .
 
 RUN npm install --only=production
-
-COPY . .
 
 ENV PORT 8080
 EXPOSE $PORT
