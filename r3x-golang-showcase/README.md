@@ -1,11 +1,11 @@
-# RubiX JavaScript Showcase
+# RubiX GoLang Showcase
 
 [![License](https://img.shields.io/badge/-Apache%202.0-blue.svg)](https://opensource.org/s/Apache-2.0)
 
 ## Getting Started
 ```
-$ docker pull quay.io/rubixfunctions/r3x-js-showcase
-$ docker run -t -p 8080:8080 quay.io/rubixfunctions/r3x-js-showcase
+$ docker pull quay.io/rubixfunctions/r3x-golang-showcase
+$ docker run -t -p 8080:8080 quay.io/rubixfunctions/r3x-golang-showcase
 ```
 Once running POST request to `localhost:8080`
 
