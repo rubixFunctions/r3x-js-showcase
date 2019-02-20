@@ -1,14 +1,10 @@
-# RubiX JavaScript Showcase
+# RubiX Showcase Repo's
 
-[![CircleCI](https://circleci.com/gh/rubixFunctions/r3x-js-showcase.svg?style=svg)](https://circleci.com/gh/rubixFunctions/r3x-js-showcase)
-[![License](https://img.shields.io/badge/-Apache%202.0-blue.svg)](https://opensource.org/s/Apache-2.0)
+This directory contains sample applications built using the RubiX Framework
 
-## Getting Started
-```
-$ docker pull quay.io/rubixfunctions/r3x-js-showcase
-$ docker run -t -p 8080:8080 quay.io/rubixfunctions/r3x-js-showcase
-```
-Once running POST request to `localhost:8080`
+## Showcase Apps
+- [JavaScript](./r3x-js-showcase) 
+- [GoLang](./r3x-golang-showcase)
 
 ## Documentation
 For full details on how deploy this function to Knative, please refer to our [Documentation here.](https://github.com/rubixFunctions/r3x-docs/blob/master/install/README.md)
