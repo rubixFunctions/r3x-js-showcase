@@ -1,6 +1,7 @@
 # RubiX JavaScript Showcase
 
 [![License](https://img.shields.io/badge/-Apache%202.0-blue.svg)](https://opensource.org/s/Apache-2.0)
+[![Docker Repository on Quay](https://quay.io/repository/rubixfunctions/r3x-js-showcase/status "Docker Repository on Quay")](https://quay.io/repository/rubixfunctions/r3x-js-showcase)
 
 ## Getting Started
 ```
