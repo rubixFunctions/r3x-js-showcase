@@ -1,6 +1,7 @@
 # RubiX GoLang Showcase
 
 [![License](https://img.shields.io/badge/-Apache%202.0-blue.svg)](https://opensource.org/s/Apache-2.0)
+[![Docker Repository on Quay](https://quay.io/repository/rubixfunctions/r3x-golang-showcase/status "Docker Repository on Quay")](https://quay.io/repository/rubixfunctions/r3x-golang-showcase)
 
 ## Getting Started
 ```
