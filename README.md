@@ -1,11 +1,6 @@
 # RubiX Showcase Repo's
 
-This directory contains sample applications built using the RubiX Framework
-
-## Showcase Apps
-- [JavaScript](./r3x-js-showcase) 
-- [GoLang](./r3x-golang-showcase)
-- [Python](./r3x-python-showcase)
+This directory contain a sample application built using the RubiX Framework
 
 ## Documentation
 For full details on how deploy this function to Knative, please refer to our [Documentation here.](https://github.com/rubixFunctions/r3x-docs/blob/master/README.md)
