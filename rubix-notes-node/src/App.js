@@ -15,7 +15,7 @@ import {
   Text,
   Toolbar,
 } from '@patternfly/react-core';
-import brandImg from './l_pf-reverse-164x11.png';
+import brandImg from './assets/images/l_pf-reverse-164x11.png';
 
 class PageLayoutGroupsNav extends React.Component {
   constructor(props) {
