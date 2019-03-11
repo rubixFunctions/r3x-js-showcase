@@ -1,0 +1,29 @@
+{
+  "name": "rubix-notes-node",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@patternfly/patternfly": "^1.0.225",
+    "@patternfly/react-core": "^2.3.6",
+    "@patternfly/react-styles": "^2.3.5",
+    "patternfly": "^3.59.1",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-scripts": "2.1.8"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
