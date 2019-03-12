@@ -1,12 +1,6 @@
 import React from 'react';
 import {
   BackgroundImage,
-  Button,
-  DataList,
-  DataListItem,
-  DataListCheck,
-  DataListAction,
-  DataListCell,
   Nav,
   NavGroup,
   NavItem,
@@ -18,32 +12,19 @@ import {
   TextContent,
   Text,
   TextVariants,
-  Toolbar,
 } from '@patternfly/react-core';
 import TextDictateInput from './components/TextDictateInput'
+import SpeechListInput from './components/SpeechListInput'
+
 
 class RubiXApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isDropdownOpen: false,
       isKebabDropdownOpen: false,
-      activeItem: 'grp-1_itm-1',
       soundClips: []
     };
   }
-
-  onDropdownToggle = isDropdownOpen => {
-    this.setState({
-      isDropdownOpen
-    });
-  };
-
-  onDropdownSelect = event => {
-    this.setState({
-      isDropdownOpen: !this.state.isDropdownOpen
-    });
-  };
 
   onKebabDropdownToggle = isKebabDropdownOpen => {
     this.setState({
@@ -57,12 +38,6 @@ class RubiXApp extends React.Component {
     });
   };
 
-  onNavSelect = result => {
-    this.setState({
-      activeItem: result.itemId
-    });
-  };
-
   componentDidMount(){
     this.getSoundClips();
   }
@@ -73,26 +48,24 @@ class RubiXApp extends React.Component {
   }
 
   render() {
-    const { activeItem } = this.state;
-
     const PageNav = (
       <Nav onSelect={this.onNavSelect} aria-label="Nav">
         <NavGroup title="RubiX">
-          <NavItem to="#grouped-1" itemId="grp-1_itm-1" isActive={activeItem === 'grp-1_itm-1'}>
+          <NavItem to="#grouped-1" itemId="grp-1_itm-1" href="https://github.com/rubixFunctions/r3x-docs/blob/master/README.md">
             Documentation
           </NavItem>
-          <NavItem to="#grouped-2" itemId="grp-1_itm-2" isActive={activeItem === 'grp-1_itm-2'}>
+          <NavItem to="#grouped-2" itemId="grp-1_itm-2" href="https://github.com/rubixFunctions/r3x-cli">
             Command Line Tool
           </NavItem>
-          <NavItem to="#grouped-3" itemId="grp-1_itm-3" isActive={activeItem === 'grp-1_itm-3'}>
+          <NavItem to="#grouped-3" itemId="grp-1_itm-3" href="https://github.com/rubixFunctions/r3x-js-sdk">
             Software Development Kit
           </NavItem>
         </NavGroup>
         <NavGroup title="Knative">
-          <NavItem to="#grouped-7" itemId="grp-2_itm-1" isActive={activeItem === 'grp-2_itm-1'}>
+          <NavItem to="#grouped-7" itemId="grp-2_itm-1" href="https://cloud.google.com/knative/">
             About
           </NavItem>
-          <NavItem to="#grouped-8" itemId="grp-2_itm-2" isActive={activeItem === 'grp-2_itm-2'}>
+          <NavItem to="#grouped-8" itemId="grp-2_itm-2" href="https://github.com/knative/docs">
             Documentation
           </NavItem>
         </NavGroup>
@@ -112,7 +85,11 @@ class RubiXApp extends React.Component {
         showNavToggle
       />
     );
-    const Sidebar = <PageSidebar nav={PageNav} />;
+    const Sidebar = <PageSidebar nav={PageNav}/>;
+
+    const fStyle = {
+      float: 'right'
+    };
 
     return (
       <React.Fragment>
@@ -128,53 +105,12 @@ class RubiXApp extends React.Component {
           </PageSection>
             <TextDictateInput/>
             <SpeechListInput soundClips={this.state.soundClips}/>
+          <PageSection variant={PageSectionVariants.darker}>
+            <Text style={fStyle} component={TextVariants.p}>Powered By RubiX & Knative</Text>
+          </PageSection>
         </Page>
       </React.Fragment>
     );
   }
 }
-
-class SpeechListInput extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-    this.handleListenClick = this.handleListenClick.bind(this)
-    this.handleDeleteClick = this.handleDeleteClick.bind(this)
-  }
-
-  handleListenClick(e){
-    e.preventDefault();
-    console.log('Listen Button Clicked')
-  }
-
-  handleDeleteClick(e){
-    e.preventDefault();
-    console.log('Delete Button Clicked')
-  }
-
-  buildList(){
-    return this.props.soundClips.map((data) => {
-        return <DataListItem aria-labelledby="data._id">
-          <DataListCell width={4}>
-            <span id="data._id">{data.title}</span>
-            </DataListCell>
-            <DataListCell>
-            <Button variant="Primary" onClick={this.handleListenClick}>Listen</Button> <Button variant="danger" onClick={this.handleDeleteClick}>Delete</Button>
-            </DataListCell>
-        </DataListItem>
-    })
-  }
-
-  render(){
-    return (
-      <PageSection variant={PageSectionVariants.light}>
-        <Text component={TextVariants.h2}>Speech Clips</Text>
-        <DataList aria-label="List Sound Clips">
-          {this.buildList()}
-        </DataList>
-      </PageSection>
-    )
-  }
-}
-
 export default RubiXApp;
