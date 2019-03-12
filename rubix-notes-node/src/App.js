@@ -11,31 +11,20 @@ import {
   PageSidebar,
   TextContent,
   Text,
-  Toolbar,
+  TextVariants,
 } from '@patternfly/react-core';
 import TextDictateInput from './components/TextDictateInput'
+import SpeechListInput from './components/SpeechListInput'
+
 
 class RubiXApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isDropdownOpen: false,
       isKebabDropdownOpen: false,
-      activeItem: 'grp-1_itm-1'
+      soundClips: []
     };
   }
-
-  onDropdownToggle = isDropdownOpen => {
-    this.setState({
-      isDropdownOpen
-    });
-  };
-
-  onDropdownSelect = event => {
-    this.setState({
-      isDropdownOpen: !this.state.isDropdownOpen
-    });
-  };
 
   onKebabDropdownToggle = isKebabDropdownOpen => {
     this.setState({
@@ -49,42 +38,38 @@ class RubiXApp extends React.Component {
     });
   };
 
-  onNavSelect = result => {
-    this.setState({
-      activeItem: result.itemId
-    });
-  };
+  componentDidMount(){
+    this.getSoundClips();
+  }
+
+  getSoundClips(){
+    let clips = [{'title':'wubba lubba dub dub'},{'title':'i am a placeholder note'}, {'title':"Oh, yeah!You gotta get schwifty.You gotta get schwifty in here.It's time to get schwifty.Oh-oh.You gotta get schwifty.Oh, yeah!"}]
+    this.setState({soundClips: clips})
+  }
 
   render() {
-    const { activeItem } = this.state;
-
     const PageNav = (
       <Nav onSelect={this.onNavSelect} aria-label="Nav">
         <NavGroup title="RubiX">
-          <NavItem to="#grouped-1" itemId="grp-1_itm-1" isActive={activeItem === 'grp-1_itm-1'}>
+          <NavItem to="#grouped-1" itemId="grp-1_itm-1" href="https://github.com/rubixFunctions/r3x-docs/blob/master/README.md">
             Documentation
           </NavItem>
-          <NavItem to="#grouped-2" itemId="grp-1_itm-2" isActive={activeItem === 'grp-1_itm-2'}>
+          <NavItem to="#grouped-2" itemId="grp-1_itm-2" href="https://github.com/rubixFunctions/r3x-cli">
             Command Line Tool
           </NavItem>
-          <NavItem to="#grouped-3" itemId="grp-1_itm-3" isActive={activeItem === 'grp-1_itm-3'}>
+          <NavItem to="#grouped-3" itemId="grp-1_itm-3" href="https://github.com/rubixFunctions/r3x-js-sdk">
             Software Development Kit
           </NavItem>
         </NavGroup>
         <NavGroup title="Knative">
-          <NavItem to="#grouped-7" itemId="grp-2_itm-1" isActive={activeItem === 'grp-2_itm-1'}>
+          <NavItem to="#grouped-7" itemId="grp-2_itm-1" href="https://cloud.google.com/knative/">
             About
           </NavItem>
-          <NavItem to="#grouped-8" itemId="grp-2_itm-2" isActive={activeItem === 'grp-2_itm-2'}>
+          <NavItem to="#grouped-8" itemId="grp-2_itm-2" href="https://github.com/knative/docs">
             Documentation
           </NavItem>
         </NavGroup>
       </Nav>
-    );
-    const PageToolbar = (
-      <Toolbar>
-    
-      </Toolbar>
     );
 
     const logoProps = {
@@ -97,11 +82,14 @@ class RubiXApp extends React.Component {
       <PageHeader
         logo="RubiX"
         logoProps={logoProps}
-        toolbar={PageToolbar}
         showNavToggle
       />
     );
-    const Sidebar = <PageSidebar nav={PageNav} />;
+    const Sidebar = <PageSidebar nav={PageNav}/>;
+
+    const fStyle = {
+      float: 'right'
+    };
 
     return (
       <React.Fragment>
@@ -109,13 +97,17 @@ class RubiXApp extends React.Component {
         <Page header={Header} sidebar={Sidebar} isManagedSidebar>
           <PageSection variant={PageSectionVariants.light}>
             <TextContent>
-              <Text component="h1">RubiX Notes</Text>
-              <Text component="p">
+              <Text component={TextVariants.h1}>RubiX Notes</Text>
+              <Text component={TextVariants.p}>
                 Convert Text to Speech 
               </Text>
             </TextContent>
           </PageSection>
             <TextDictateInput/>
+            <SpeechListInput soundClips={this.state.soundClips}/>
+          <PageSection variant={PageSectionVariants.darker}>
+            <Text style={fStyle} component={TextVariants.p}>Powered By RubiX & Knative</Text>
+          </PageSection>
         </Page>
       </React.Fragment>
     );
