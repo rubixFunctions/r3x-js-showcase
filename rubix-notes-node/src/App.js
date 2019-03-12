@@ -1,8 +1,6 @@
 import React from 'react';
 import {
   BackgroundImage,
-  BackgroundImageSrc,
-  Brand,
   Nav,
   NavGroup,
   NavItem,
@@ -15,9 +13,9 @@ import {
   Text,
   Toolbar,
 } from '@patternfly/react-core';
-import brandImg from './assets/images/l_pf-reverse-164x11.png';
+import TextDictateInput from './components/TextDictateInput'
 
-class PageLayoutGroupsNav extends React.Component {
+class RubiXApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -88,18 +86,17 @@ class PageLayoutGroupsNav extends React.Component {
     
       </Toolbar>
     );
-    const bgImages = {
-      [BackgroundImageSrc.lg]: '/assets/images/pfbg_1200.jpg',
-      [BackgroundImageSrc.sm]: '/assets/images/pfbg_768.jpg',
-      [BackgroundImageSrc.sm2x]: '/assets/images/pfbg_768@2x.jpg',
-      [BackgroundImageSrc.xs]: '/assets/images/pfbg_576.jpg',
-      [BackgroundImageSrc.xs2x]: '/assets/images/pfbg_576@2x.jpg',
-      [BackgroundImageSrc.filter]: '/assets/images/background-filter.svg#image_overlay'
+
+    const logoProps = {
+      href: 'https://github.com/rubixFunctions',
+      onClick: () => console.log('clicked logo, navigate to GitHub'),
+      target: '_blank'
     };
 
     const Header = (
       <PageHeader
-        logo={<Brand src={brandImg} alt="Patternfly Logo" />}
+        logo="RubiX"
+        logoProps={logoProps}
         toolbar={PageToolbar}
         showNavToggle
       />
@@ -108,25 +105,20 @@ class PageLayoutGroupsNav extends React.Component {
 
     return (
       <React.Fragment>
-        <BackgroundImage src={bgImages} />
+        <BackgroundImage src={'./assets/images/background_large.jpg'} />
         <Page header={Header} sidebar={Sidebar} isManagedSidebar>
           <PageSection variant={PageSectionVariants.light}>
             <TextContent>
-              <Text component="h1">Main Title</Text>
+              <Text component="h1">RubiX Notes</Text>
               <Text component="p">
-                Body text should be Overpass Regular at 16px. It should have leading of 24px because <br />
-                of it’s relative line height of 1.5.
+                Convert Text to Speech 
               </Text>
             </TextContent>
           </PageSection>
-          <PageSection variant={PageSectionVariants.light}>Light</PageSection>
-          <PageSection variant={PageSectionVariants.dark}>Dark</PageSection>
-          <PageSection variant={PageSectionVariants.darker}>Darker</PageSection>
-          <PageSection>Content</PageSection>
+            <TextDictateInput/>
         </Page>
       </React.Fragment>
     );
   }
 }
-
-export default PageLayoutGroupsNav;
+export default RubiXApp;
