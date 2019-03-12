@@ -1,6 +1,15 @@
 import React from 'react';
 import {
   BackgroundImage,
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  DataList,
+  DataListItem,
+  DataListCheck,
+  DataListAction,
+  DataListCell,
   Nav,
   NavGroup,
   NavItem,
@@ -11,6 +20,7 @@ import {
   PageSidebar,
   TextContent,
   Text,
+  TextVariants,
   Toolbar,
 } from '@patternfly/react-core';
 import TextDictateInput from './components/TextDictateInput'
@@ -21,7 +31,8 @@ class RubiXApp extends React.Component {
     this.state = {
       isDropdownOpen: false,
       isKebabDropdownOpen: false,
-      activeItem: 'grp-1_itm-1'
+      activeItem: 'grp-1_itm-1',
+      soundClips: []
     };
   }
 
@@ -55,6 +66,15 @@ class RubiXApp extends React.Component {
     });
   };
 
+  componentDidMount(){
+    this.getSoundClips();
+  }
+
+  getSoundClips(){
+    let clips = [{'title':'wubba lubba dub dub'},{'title':'i am a placeholder note'}]
+    this.setState({soundClips: clips})
+  }
+
   render() {
     const { activeItem } = this.state;
 
@@ -81,11 +101,6 @@ class RubiXApp extends React.Component {
         </NavGroup>
       </Nav>
     );
-    const PageToolbar = (
-      <Toolbar>
-    
-      </Toolbar>
-    );
 
     const logoProps = {
       href: 'https://github.com/rubixFunctions',
@@ -97,7 +112,6 @@ class RubiXApp extends React.Component {
       <PageHeader
         logo="RubiX"
         logoProps={logoProps}
-        toolbar={PageToolbar}
         showNavToggle
       />
     );
@@ -109,16 +123,48 @@ class RubiXApp extends React.Component {
         <Page header={Header} sidebar={Sidebar} isManagedSidebar>
           <PageSection variant={PageSectionVariants.light}>
             <TextContent>
-              <Text component="h1">RubiX Notes</Text>
-              <Text component="p">
+              <Text component={TextVariants.h1}>RubiX Notes</Text>
+              <Text component={TextVariants.p}>
                 Convert Text to Speech 
               </Text>
             </TextContent>
           </PageSection>
             <TextDictateInput/>
+            <SpeechListInput soundClips={this.state.soundClips}/>
         </Page>
       </React.Fragment>
     );
   }
 }
+
+class SpeechListInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  buildList(){
+    console.log("i fired", this.state.soundClips)
+    return this.props.soundClips.map((data) => {
+        return <DataListItem aria-labelledby="data._id">
+          <DataListCell>
+            <span id="data._id">{data.title}</span>
+          </DataListCell>
+        </DataListItem>
+    })
+  }
+
+
+  render(){
+    return (
+      <PageSection variant={PageSectionVariants.light}>
+        <Text component={TextVariants.h2}>Speech Clips</Text>
+        <DataList aria-label="List Sound Clips">
+          {this.buildList()}
+        </DataList>
+      </PageSection>
+    )
+  }
+}
+
 export default RubiXApp;
