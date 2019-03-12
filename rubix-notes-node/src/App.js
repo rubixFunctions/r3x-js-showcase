@@ -2,7 +2,9 @@ import React from 'react';
 import {
   BackgroundImage,
   BackgroundImageSrc,
-  Brand,
+  Button,
+  ButtonVariant,
+  InputGroup,
   Nav,
   NavGroup,
   NavItem,
@@ -11,11 +13,11 @@ import {
   PageSection,
   PageSectionVariants,
   PageSidebar,
+  TextArea,
   TextContent,
   Text,
   Toolbar,
 } from '@patternfly/react-core';
-import brandImg from './assets/images/l_pf-reverse-164x11.png';
 
 class PageLayoutGroupsNav extends React.Component {
   constructor(props) {
@@ -97,9 +99,16 @@ class PageLayoutGroupsNav extends React.Component {
       [BackgroundImageSrc.filter]: '/assets/images/background-filter.svg#image_overlay'
     };
 
+    const logoProps = {
+      href: 'https://github.com/rubixFunctions',
+      onClick: () => console.log('clicked logo, navigate to GitHub'),
+      target: '_blank'
+    };
+
     const Header = (
       <PageHeader
-        logo={<Brand src={brandImg} alt="Patternfly Logo" />}
+        logo="RubiX"
+        logoProps={logoProps}
         toolbar={PageToolbar}
         showNavToggle
       />
@@ -112,20 +121,53 @@ class PageLayoutGroupsNav extends React.Component {
         <Page header={Header} sidebar={Sidebar} isManagedSidebar>
           <PageSection variant={PageSectionVariants.light}>
             <TextContent>
-              <Text component="h1">Main Title</Text>
+              <Text component="h1">RubiX Notes</Text>
               <Text component="p">
-                Body text should be Overpass Regular at 16px. It should have leading of 24px because <br />
-                of it’s relative line height of 1.5.
+                Convert Text to Speech 
               </Text>
             </TextContent>
           </PageSection>
-          <PageSection variant={PageSectionVariants.light}>Light</PageSection>
-          <PageSection variant={PageSectionVariants.dark}>Dark</PageSection>
-          <PageSection variant={PageSectionVariants.darker}>Darker</PageSection>
-          <PageSection>Content</PageSection>
+            <TextDictateInput/>
         </Page>
       </React.Fragment>
     );
+  }
+}
+
+class TextDictateInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: ''};
+
+    this.handleClick = this.handleClick.bind(this);
+    this.handleTextAreaChange = this.handleTextAreaChange.bind(this)
+  }
+  
+  handleTextAreaChange = value => {
+    this.setState({ value });
+  };
+
+
+  handleClick(e) {
+    e.preventDefault();
+    console.log('Convert Button Clicked ', this.state.value)
+    this.setState({value: ''})
+    
+  }
+
+  render(){
+    const { value } = this.state;
+    return (
+      <PageSection variant={PageSectionVariants.dark}>
+      <Text component="h3">Enter the text you wish to convert to speech</Text>
+        <InputGroup>
+          <TextArea value={value} onChange={this.handleTextAreaChange} name="textarea2" id="textarea2" aria-label="textarea with button" />
+            <Button id="textinputbutton" variant={ButtonVariant.primary} onClick={this.handleClick}>
+              Convert
+            </Button>
+          </InputGroup>
+        </PageSection>
+    )
   }
 }
 
