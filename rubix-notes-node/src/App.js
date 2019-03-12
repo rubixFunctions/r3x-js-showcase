@@ -1,10 +1,6 @@
 import React from 'react';
 import {
   BackgroundImage,
-  BackgroundImageSrc,
-  Button,
-  ButtonVariant,
-  InputGroup,
   Nav,
   NavGroup,
   NavItem,
@@ -13,13 +9,13 @@ import {
   PageSection,
   PageSectionVariants,
   PageSidebar,
-  TextArea,
   TextContent,
   Text,
   Toolbar,
 } from '@patternfly/react-core';
+import TextDictateInput from './components/TextDictateInput'
 
-class PageLayoutGroupsNav extends React.Component {
+class RubiXApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -90,14 +86,6 @@ class PageLayoutGroupsNav extends React.Component {
     
       </Toolbar>
     );
-    const bgImages = {
-      [BackgroundImageSrc.lg]: '/assets/images/pfbg_1200.jpg',
-      [BackgroundImageSrc.sm]: '/assets/images/pfbg_768.jpg',
-      [BackgroundImageSrc.sm2x]: '/assets/images/pfbg_768@2x.jpg',
-      [BackgroundImageSrc.xs]: '/assets/images/pfbg_576.jpg',
-      [BackgroundImageSrc.xs2x]: '/assets/images/pfbg_576@2x.jpg',
-      [BackgroundImageSrc.filter]: '/assets/images/background-filter.svg#image_overlay'
-    };
 
     const logoProps = {
       href: 'https://github.com/rubixFunctions',
@@ -117,7 +105,7 @@ class PageLayoutGroupsNav extends React.Component {
 
     return (
       <React.Fragment>
-        <BackgroundImage src={bgImages} />
+        <BackgroundImage src={'./assets/images/background_large.jpg'} />
         <Page header={Header} sidebar={Sidebar} isManagedSidebar>
           <PageSection variant={PageSectionVariants.light}>
             <TextContent>
@@ -133,42 +121,4 @@ class PageLayoutGroupsNav extends React.Component {
     );
   }
 }
-
-class TextDictateInput extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {value: ''};
-
-    this.handleClick = this.handleClick.bind(this);
-    this.handleTextAreaChange = this.handleTextAreaChange.bind(this)
-  }
-  
-  handleTextAreaChange = value => {
-    this.setState({ value });
-  };
-
-
-  handleClick(e) {
-    e.preventDefault();
-    console.log('Convert Button Clicked ', this.state.value)
-    this.setState({value: ''})
-    
-  }
-
-  render(){
-    const { value } = this.state;
-    return (
-      <PageSection variant={PageSectionVariants.dark}>
-      <Text component="h3">Enter the text you wish to convert to speech</Text>
-        <InputGroup>
-          <TextArea value={value} onChange={this.handleTextAreaChange} name="textarea2" id="textarea2" aria-label="textarea with button" />
-            <Button id="textinputbutton" variant={ButtonVariant.primary} onClick={this.handleClick}>
-              Convert
-            </Button>
-          </InputGroup>
-        </PageSection>
-    )
-  }
-}
-
-export default PageLayoutGroupsNav;
+export default RubiXApp;
