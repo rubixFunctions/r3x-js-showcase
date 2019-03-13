@@ -30,7 +30,7 @@ class SpeechListInput extends React.Component {
   
     buildList(){
       return this.props.soundClips.map((data) => {
-          return <DataListItem aria-labelledby="data._id">
+          return <DataListItem aria-labelledby="data._id" key={data.id}>
             <DataListCell width={4}>
               <span id="data._id">{data.title}</span>
               </DataListCell>
