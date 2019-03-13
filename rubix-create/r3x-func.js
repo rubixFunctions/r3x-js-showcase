@@ -11,24 +11,31 @@ async function addClip() {
 	});
   
 	// The kind for the new entity
-	const kind = 'Clip';
-	// The name/ID for the new entity
-	const name = 'rubixClip';
+	const kind = 'Clips';
+
 	// The Cloud Datastore key for the new entity
-	const taskKey = datastore.key([kind, name]);
-  
+	const clipKey = datastore.key(kind);
+
 	// Prepares the new entity
-	const task = {
-	  key: taskKey,
-	  data: {
-		clipId: 'clip1',
-		clip: 'Wubba lubba dub dub',
-	  },
-	};
+	const entity = {
+		key: clipKey,
+		data: [
+		  {
+			name: 'created',
+			value: new Date().toJSON(),
+		  },
+		  {
+			name: 'clip',
+			value: 'Awww Jeez',
+			excludeFromIndexes: true,
+		  },
+		],
+	  };
+
   
 	// Saves the entity
-	await datastore.save(task);
-	let response = {'message' : `Saved ${task.key.name}: ${task.data.clip}`}
+	await datastore.save(entity);
+	let response = {'message' : `Task ${clipKey.id} created successfully.`}
 	return response 
   }
 
