@@ -1,7 +1,7 @@
 const r3x = require('@rubixfunctions/r3x-js-sdk')
 const {Datastore} = require('@google-cloud/datastore');
 
-async function addClip() {
+async function addClip(title, value) {
 	const projectId = 'r3x-showcase-42';
   
 	// Creates a client
@@ -25,9 +25,13 @@ async function addClip() {
 		  },
 		  {
 			name: 'clip',
-			value: 'Awww Jeez',
+			value: value,
 			excludeFromIndexes: true,
-		  },
+		  },{
+			name: 'title',
+			value: title,
+			excludeFromIndexes: true,
+			},
 		],
 	  };
 
@@ -39,6 +43,10 @@ async function addClip() {
   }
 
 let schema
-r3x.execute(function(){
-	return addClip().catch(console.error);
+r3x.execute(function(input){
+	if(input.title && input.value){
+		return addClip(input.title, input.value).catch(console.error);
+	}
+	let res = {'ERROR': 'Wrong Input Passed'}
+	return res
 }, schema)
