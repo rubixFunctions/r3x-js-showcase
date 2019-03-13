@@ -13,9 +13,11 @@ import {
   Text,
   TextVariants,
 } from '@patternfly/react-core';
-import TextDictateInput from './components/TextDictateInput'
+import TextCreateInput from './components/TextCreateInput'
 import SpeechListInput from './components/SpeechListInput'
 import AboutRubix from './components/AboutRubix'
+
+const request = require('request-promise')
 
 
 class RubiXApp extends React.Component {
@@ -44,8 +46,22 @@ class RubiXApp extends React.Component {
   }
 
   getSoundClips(){
-    let clips = [{'key': 1, 'title':'wubba lubba dub dub'},{'key': 2, 'title':'i am a placeholder note'}, {'key': 3, 'title':"Oh, yeah!You gotta get schwifty.You gotta get schwifty in here.It's time to get schwifty.Oh-oh.You gotta get schwifty.Oh, yeah!"}]
-    this.setState({soundClips: clips})
+    var options = { method: 'POST',
+      url: 'http://localhost:8083',
+      headers: 
+      {
+        'cache-control': 'no-cache',
+        'content-type': 'application/json' },
+      };
+    let _ = this;
+    request(options, function (error, response, body) {
+      if (error) throw new Error(error);
+      if(response.statusCode === 200){
+        let data = JSON.parse(body).clips
+        _.setState({soundClips: data})
+      }
+    });
+
   }
 
   render() {
@@ -102,7 +118,7 @@ class RubiXApp extends React.Component {
               <AboutRubix />
             </TextContent>
           </PageSection>
-            <TextDictateInput/>
+            <TextCreateInput/>
             <SpeechListInput soundClips={this.state.soundClips}/>
           <PageSection variant={PageSectionVariants.darker}>
             <Text style={fStyle} component={TextVariants.p}>Powered By RubiX & Knative</Text>

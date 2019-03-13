@@ -11,7 +11,7 @@ import {
 
 const request = require('request-promise')
 
-class TextDictateInput extends React.Component {
+class TextCreateInput extends React.Component {
     constructor(props) {
       super(props);
       this.state = {value: ''};
@@ -24,25 +24,26 @@ class TextDictateInput extends React.Component {
       this.setState({ value });
     };
   
+    // "title" : "clip-3",
+    // "value" : "Hello RubiX"
   
     handleClick(e) {
       e.preventDefault();
       var options = { method: 'POST',
-      url: 'http://localhost:8080',
+      url: 'http://localhost:8081',
       headers: 
       {
         'cache-control': 'no-cache',
         'content-type': 'application/json' },
       body:{
-        file : "output_1.mp3",
-        dictate : this.state.value
+        title : "clip1",
+        value : this.state.value
       },
       json: true };
     
-    let _ = this;
     request(options, function (error, response, body) {
       if (error) throw new Error(error);
-      if(response.statusCode == 200){
+      if(response.statusCode === 200){
         console.log('We got a response', body)
       }
     });
@@ -66,5 +67,5 @@ class TextDictateInput extends React.Component {
     }
 }
 
-export default TextDictateInput;
+export default TextCreateInput;
   
