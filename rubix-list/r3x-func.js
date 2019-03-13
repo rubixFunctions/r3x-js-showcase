@@ -20,7 +20,8 @@ async function listClips() {
 	  const clipKey = clip[datastore.KEY];
 	  clipArr.push({
 		  id : clipKey.id,
-		  clip : clip.clip
+			clip : clip.clip,
+			title : clip.title
 	  });
 	});
 

@@ -30,13 +30,13 @@ async function dictate(message, file) {
     audioConfig: {audioEncoding: 'MP3'},
   };
 
-  const filename = file;
+  const filename = file + '.mp3';
 
   // Performs the Text-to-Speech request
   const [response] = await client.synthesizeSpeech(request);
   // Write the binary audio content to a local file
   const writeFile = util.promisify(fs.writeFile);
-  await writeFile(filename, response.audioContent, 'binary');
+  await writeFile('output.mp3', response.audioContent, 'binary');
 
   const bucketName = BUCKET;
 
@@ -57,8 +57,8 @@ async function dictate(message, file) {
 // Execute Dictate Function
 let schema
 r3x.execute(function(input){
-	if(input.dictate && input.file){
-		return dictate(input.dictate, input.file) 
+	if(input.value && input.title){
+		return dictate(input.value, input.title) 
 	}
 	let res = {'ERROR': 'Wrong Input Passed'}
 	return res
