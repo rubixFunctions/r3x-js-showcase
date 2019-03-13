@@ -7,16 +7,16 @@ const fs = require('fs');
 const util = require('util');
 
 let schema
-r3x.execute(function(){
-	return dictate() 
+r3x.execute(function(input){
+	return dictate(input.dictate) 
 }, schema)
 
-async function dictate() {
+async function dictate(message) {
   // Creates a client
   const client = new textToSpeech.TextToSpeechClient();
 
   // The text to synthesize
-  const text = 'Hello, world!';
+  const text = message;
 
   // Construct the request
   const request = {
@@ -32,6 +32,8 @@ async function dictate() {
   // Write the binary audio content to a local file
   const writeFile = util.promisify(fs.writeFile);
   await writeFile('output.mp3', response.audioContent, 'binary');
+  // Build response to request
   let res = {'message' : 'Audio content written to file: output.mp3'}
+  // Return response
   return res
 }
