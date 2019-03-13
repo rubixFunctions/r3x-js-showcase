@@ -4,19 +4,15 @@ const r3x = require('@rubixfunctions/r3x-js-sdk')
 const textToSpeech = require('@google-cloud/text-to-speech');
 // Imports the Google Cloud client library
 const {Storage} = require('@google-cloud/storage');
-
 // Import other required libraries
 const fs = require('fs');
 const util = require('util');
+
+
 // Creates a client
 const storage = new Storage();
-
+// Declate Google Bucket
 const BUCKET = 'r3x-mp3'
-
-let schema
-r3x.execute(function(input){
-	return dictate(input.dictate, input.file) 
-}, schema)
 
 async function dictate(message, file) {
   // Creates a client
@@ -57,3 +53,13 @@ async function dictate(message, file) {
   // Return response
   return res
 }
+
+// Execute Dictate Function
+let schema
+r3x.execute(function(input){
+	if(input.dictate && input.file){
+		return dictate(input.dictate, input.file) 
+	}
+	let res = {'ERROR': 'Wrong Input Passed'}
+	return res
+}, schema)
