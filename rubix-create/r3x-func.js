@@ -2,7 +2,6 @@ const r3x = require('@rubixfunctions/r3x-js-sdk')
 const {Datastore} = require('@google-cloud/datastore');
 
 async function addClip() {
-	// Your Google Cloud Platform project ID
 	const projectId = 'r3x-showcase-42';
   
 	// Creates a client
