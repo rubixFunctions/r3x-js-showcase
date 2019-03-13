@@ -9,6 +9,8 @@ import {
     Text
   } from '@patternfly/react-core';
 
+const request = require('request-promise')
+
 class TextDictateInput extends React.Component {
     constructor(props) {
       super(props);
@@ -25,9 +27,27 @@ class TextDictateInput extends React.Component {
   
     handleClick(e) {
       e.preventDefault();
+      var options = { method: 'POST',
+      url: 'http://localhost:8080',
+      headers: 
+      {
+        'cache-control': 'no-cache',
+        'content-type': 'application/json' },
+      body:{
+        file : "output_1.mp3",
+        dictate : this.state.value
+      },
+      json: true };
+    
+    let _ = this;
+    request(options, function (error, response, body) {
+      if (error) throw new Error(error);
+      if(response.statusCode == 200){
+        console.log('We got a response', body)
+      }
+    });
       console.log('Convert Button Clicked ', this.state.value)
       this.setState({value: ''})
-      
     }
   
     render(){
