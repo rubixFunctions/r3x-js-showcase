@@ -44,7 +44,7 @@ class RubiXApp extends React.Component {
   }
 
   getSoundClips(){
-    let clips = [{'title':'wubba lubba dub dub'},{'title':'i am a placeholder note'}, {'title':"Oh, yeah!You gotta get schwifty.You gotta get schwifty in here.It's time to get schwifty.Oh-oh.You gotta get schwifty.Oh, yeah!"}]
+    let clips = [{'key': 1, 'title':'wubba lubba dub dub'},{'key': 2, 'title':'i am a placeholder note'}, {'key': 3, 'title':"Oh, yeah!You gotta get schwifty.You gotta get schwifty in here.It's time to get schwifty.Oh-oh.You gotta get schwifty.Oh, yeah!"}]
     this.setState({soundClips: clips})
   }
 
