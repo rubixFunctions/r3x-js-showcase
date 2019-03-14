@@ -59,7 +59,7 @@ class TextCreateInput extends React.Component {
           <InputGroup>
             <TextArea value={value} onChange={this.handleTextAreaChange} name="textarea2" id="textarea2" aria-label="textarea with button" />
               <Button id="textinputbutton" variant={ButtonVariant.primary} onClick={this.handleClick}>
-                Convert
+                Create
               </Button>
             </InputGroup>
           </PageSection>

@@ -15,7 +15,6 @@ class SpeechListInput extends React.Component {
     constructor(props) {
       super(props);
       this.state = {};
-      this.handleDeleteClick = this.handleDeleteClick.bind(this)
     }
   
     handleListenClick(data){
@@ -23,9 +22,24 @@ class SpeechListInput extends React.Component {
       this.handleDictate(data)
     }
   
-    handleDeleteClick(e){
-      e.preventDefault();
-      console.log('Delete Button Clicked')
+    handleDeleteClick(data){
+      var options = { method: 'POST',
+      url: 'http://localhost:8080',
+      headers: 
+      {
+        'cache-control': 'no-cache',
+        'content-type': 'application/json' },
+      body:{
+        clipId : data.id
+      },
+      json: true };
+    
+    request(options, function (error, response, body) {
+      if (error) throw new Error(error);
+      if(response.statusCode === 200){
+        console.log('We got a response', body)
+      }
+    });
     }
 
     handleDictate(data){
@@ -56,7 +70,7 @@ class SpeechListInput extends React.Component {
               <span id="data._id">{data.clip}</span>
               </DataListCell>
               <DataListCell>
-              <Button variant="Primary" onClick={this.handleListenClick.bind(this, data)}>Listen</Button> <Button variant="danger" onClick={this.handleDeleteClick}>Delete</Button>
+              <Button variant="Primary" onClick={this.handleListenClick.bind(this, data)}>Listen</Button> <Button variant="danger" onClick={this.handleDeleteClick.bind(this,data)}>Delete</Button>
               </DataListCell>
           </DataListItem>
       })

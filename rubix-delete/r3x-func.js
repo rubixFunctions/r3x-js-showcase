@@ -9,17 +9,20 @@ async function deleteClip(clipId) {
 	  projectId: projectId,
 	});
 
-	const ClipKey = datastore.key(['Clips', clipId]);
+	const ClipKey = datastore.key(['Clips', parseInt(clipId)]);
+
 
 	await datastore.delete(ClipKey);
-	console.log(`Task ${clipId} deleted successfully.`);
+	let response = {'message' : `Clip ${clipId} deleted successfully.`}
+	return response 
 }
 
 let schema
 r3x.execute(function(input){
 	if (input.clipId){
-		deleteClip(input.clipId)
+		return deleteClip(input.clipId)
 	} 
-	let response = {'message' : 'Hello r3x function'}
+	let response = {'ERROR' : 'WRONG INPUT'}
 	return response 
+
 }, schema)
