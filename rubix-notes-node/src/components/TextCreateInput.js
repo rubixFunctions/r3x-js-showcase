@@ -24,9 +24,6 @@ class TextCreateInput extends React.Component {
       this.setState({ value });
     };
   
-    // "title" : "clip-3",
-    // "value" : "Hello RubiX"
-  
     handleClick(e) {
       e.preventDefault();
       var options = { method: 'POST',
@@ -40,13 +37,14 @@ class TextCreateInput extends React.Component {
         value : this.state.value
       },
       json: true };
-    
+    let _ = this;
     request(options, function (error, response, body) {
       if (error) throw new Error(error);
-      if(response.statusCode === 200){
-        console.log('We got a response', body)
-      }
-    });
+        if(response.statusCode === 200){
+          console.log('We got a response', body)
+          _.props.updateListCallback();
+        }
+      });
       console.log('Convert Button Clicked ', this.state.value)
       this.setState({value: ''})
     }

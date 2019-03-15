@@ -34,12 +34,14 @@ class SpeechListInput extends React.Component {
       },
       json: true };
     
+    let _ = this;
     request(options, function (error, response, body) {
       if (error) throw new Error(error);
-      if(response.statusCode === 200){
-        console.log('We got a response', body)
-      }
-    });
+        if(response.statusCode === 200){
+          console.log('We got a response', body)
+          _.props.updateListCallback();
+        }
+      });
     }
 
     handleDictate(data){
@@ -55,13 +57,13 @@ class SpeechListInput extends React.Component {
       },
       json: true };
     
-    request(options, function (error, response, body) {
-      if (error) throw new Error(error);
-      if(response.statusCode === 200){
-        console.log('We got a response', body)
+      request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+          if(response.statusCode === 200){
+            console.log('We got a response', body)
+          }
+        });
       }
-    });
-    }
   
     buildList(){
       return this.props.soundClips.map((data) => {

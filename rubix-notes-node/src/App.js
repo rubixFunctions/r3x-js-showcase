@@ -27,6 +27,7 @@ class RubiXApp extends React.Component {
       isKebabDropdownOpen: false,
       soundClips: []
     };
+    this.updateListCallback = this.updateListCallback.bind(this)
   }
 
   onKebabDropdownToggle = isKebabDropdownOpen => {
@@ -45,6 +46,10 @@ class RubiXApp extends React.Component {
     this.getSoundClips();
   }
 
+  updateListCallback(){
+    this.getSoundClips();
+  }
+
   getSoundClips(){
     var options = { method: 'POST',
       url: 'http://localhost:8083',
@@ -56,12 +61,11 @@ class RubiXApp extends React.Component {
     let _ = this;
     request(options, function (error, response, body) {
       if (error) throw new Error(error);
-      if(response.statusCode === 200){
-        let data = JSON.parse(body).clips
-        _.setState({soundClips: data})
-      }
-    });
-
+        if(response.statusCode === 200){
+          let data = JSON.parse(body).clips
+          _.setState({soundClips: data})
+        }
+      });
   }
 
   render() {
@@ -118,8 +122,8 @@ class RubiXApp extends React.Component {
               <AboutRubix />
             </TextContent>
           </PageSection>
-            <TextCreateInput/>
-            <SpeechListInput soundClips={this.state.soundClips}/>
+            <TextCreateInput updateListCallback={this.updateListCallback}/>
+            <SpeechListInput soundClips={this.state.soundClips} updateListCallback={this.updateListCallback}/>
           <PageSection variant={PageSectionVariants.darker}>
             <Text style={fStyle} component={TextVariants.p}>Powered By RubiX & Knative</Text>
           </PageSection>

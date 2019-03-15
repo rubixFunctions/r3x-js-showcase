@@ -49,7 +49,7 @@ async function dictate(message, file) {
   });
   
   // Build response to request
-  let res = {'message' : `Audio content ${filename} uploaded to ${bucketName}.`}
+  let res = {'url' : `https://storage.cloud.google.com/r3x-mp3/${filename}`}
   // Return response
   return res
 }
