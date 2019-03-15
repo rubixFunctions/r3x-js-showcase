@@ -1,0 +1,19 @@
+{
+		"name": "rubix-create",
+		"version": "0.0.1",
+		"description": "r3x Knative Function",
+		"main": "r3x-func.js",
+		"scripts": {
+				"start": "node r3x-func.js"
+		},
+		"keywords": [
+				"javascript",
+				"knative",
+				"kubernetes",
+				"serverless"
+		],
+		"dependencies": {
+				"@google-cloud/datastore": "^3.1.2",
+				"@rubixfunctions/r3x-js-sdk": "0.0.12"
+		}
+}

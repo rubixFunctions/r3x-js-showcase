@@ -9,33 +9,50 @@ import {
     Text,
     TextVariants,
   } from '@patternfly/react-core';
+import DictateModal from './DictateModal'
+const request = require('request-promise')
 
 class SpeechListInput extends React.Component {
     constructor(props) {
       super(props);
       this.state = {};
-      this.handleListenClick = this.handleListenClick.bind(this)
-      this.handleDeleteClick = this.handleDeleteClick.bind(this)
     }
   
-    handleListenClick(e){
-      e.preventDefault();
+    handleListenClick(data){
       console.log('Listen Button Clicked')
+      this.handleDictate(data)
     }
   
-    handleDeleteClick(e){
-      e.preventDefault();
-      console.log('Delete Button Clicked')
+    handleDeleteClick(data){
+      var options = { method: 'POST',
+      url: 'http://localhost:8080',
+      headers: 
+      {
+        'cache-control': 'no-cache',
+        'content-type': 'application/json' },
+      body:{
+        clipId : data.id
+      },
+      json: true };
+    
+    let _ = this;
+    request(options, function (error, response, body) {
+      if (error) throw new Error(error);
+        if(response.statusCode === 200){
+          console.log('We got a response', body)
+          _.props.updateListCallback();
+        }
+      });
     }
-  
+
     buildList(){
       return this.props.soundClips.map((data) => {
           return <DataListItem aria-labelledby="data._id" key={data.id}>
             <DataListCell width={4}>
-              <span id="data._id">{data.title}</span>
+              <span id="data._id">{data.clip}</span>
               </DataListCell>
               <DataListCell>
-              <Button variant="Primary" onClick={this.handleListenClick}>Listen</Button> <Button variant="danger" onClick={this.handleDeleteClick}>Delete</Button>
+              <DictateModal data={data}/><Button variant="danger" onClick={this.handleDeleteClick.bind(this,data)}>Delete</Button>
               </DataListCell>
           </DataListItem>
       })

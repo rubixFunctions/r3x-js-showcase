@@ -9,7 +9,9 @@ import {
     Text
   } from '@patternfly/react-core';
 
-class TextDictateInput extends React.Component {
+const request = require('request-promise')
+
+class TextCreateInput extends React.Component {
     constructor(props) {
       super(props);
       this.state = {value: ''};
@@ -22,12 +24,29 @@ class TextDictateInput extends React.Component {
       this.setState({ value });
     };
   
-  
     handleClick(e) {
       e.preventDefault();
+      var options = { method: 'POST',
+      url: 'http://localhost:8081',
+      headers: 
+      {
+        'cache-control': 'no-cache',
+        'content-type': 'application/json' },
+      body:{
+        title : "clip1",
+        value : this.state.value
+      },
+      json: true };
+    let _ = this;
+    request(options, function (error, response, body) {
+      if (error) throw new Error(error);
+        if(response.statusCode === 200){
+          console.log('We got a response', body)
+          _.props.updateListCallback();
+        }
+      });
       console.log('Convert Button Clicked ', this.state.value)
       this.setState({value: ''})
-      
     }
   
     render(){
@@ -38,7 +57,7 @@ class TextDictateInput extends React.Component {
           <InputGroup>
             <TextArea value={value} onChange={this.handleTextAreaChange} name="textarea2" id="textarea2" aria-label="textarea with button" />
               <Button id="textinputbutton" variant={ButtonVariant.primary} onClick={this.handleClick}>
-                Convert
+                Create
               </Button>
             </InputGroup>
           </PageSection>
@@ -46,5 +65,5 @@ class TextDictateInput extends React.Component {
     }
 }
 
-export default TextDictateInput;
+export default TextCreateInput;
   
