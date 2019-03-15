@@ -9,7 +9,8 @@ import {
     Text,
     TextVariants,
   } from '@patternfly/react-core';
-  const request = require('request-promise')
+import DictateModal from './DictateModal'
+const request = require('request-promise')
 
 class SpeechListInput extends React.Component {
     constructor(props) {
@@ -44,27 +45,6 @@ class SpeechListInput extends React.Component {
       });
     }
 
-    handleDictate(data){
-      var options = { method: 'POST',
-      url: 'http://localhost:8082',
-      headers: 
-      {
-        'cache-control': 'no-cache',
-        'content-type': 'application/json' },
-      body:{
-        title : data.title,
-        value : data.clip
-      },
-      json: true };
-    
-      request(options, function (error, response, body) {
-        if (error) throw new Error(error);
-          if(response.statusCode === 200){
-            console.log('We got a response', body)
-          }
-        });
-      }
-  
     buildList(){
       return this.props.soundClips.map((data) => {
           return <DataListItem aria-labelledby="data._id" key={data.id}>
@@ -72,7 +52,7 @@ class SpeechListInput extends React.Component {
               <span id="data._id">{data.clip}</span>
               </DataListCell>
               <DataListCell>
-              <Button variant="Primary" onClick={this.handleListenClick.bind(this, data)}>Listen</Button> <Button variant="danger" onClick={this.handleDeleteClick.bind(this,data)}>Delete</Button>
+              <DictateModal data={data}/><Button variant="danger" onClick={this.handleDeleteClick.bind(this,data)}>Delete</Button>
               </DataListCell>
           </DataListItem>
       })

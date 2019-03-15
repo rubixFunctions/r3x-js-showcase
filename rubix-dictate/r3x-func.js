@@ -47,11 +47,27 @@ async function dictate(message, file) {
 	  cacheControl: 'public, max-age=31536000',
 	},
   });
-  
-  // Build response to request
-  let res = {'url' : `https://storage.cloud.google.com/r3x-mp3/${filename}`}
-  // Return response
-  return res
+
+
+  options = {                                                                      
+    action: 'read',                                                               
+    expires: '03-01-2500',                                                        
+  }; 
+
+  let res;
+  await storage
+  .bucket(bucketName)
+  .file(filename)
+  .getSignedUrl(options)
+  .then(results => {
+    const url = results[0];
+    console.log(`The signed url for ${filename} is ${url}.`);
+    res = {'url' : url}
+  })
+  .catch(err => {
+    console.error('ERROR:', err);
+  });  
+  return res    
 }
 
 // Execute Dictate Function

@@ -94,7 +94,7 @@ class RubiXApp extends React.Component {
     );
 
     const logoProps = {
-      href: 'https://github.com/rubixFunctions',
+      href: this.audio,
       onClick: () => console.log('clicked logo, navigate to GitHub'),
       target: '_blank'
     };
@@ -111,6 +111,7 @@ class RubiXApp extends React.Component {
     const fStyle = {
       float: 'right'
     };
+
 
     return (
       <React.Fragment>
