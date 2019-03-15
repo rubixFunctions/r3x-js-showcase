@@ -1,0 +1,64 @@
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: r3x-rubix-create
+  namespace: default
+spec:
+  runLatest:
+    configuration:
+      revisionTemplate:
+        spec:
+          container:
+            image: docker.io/muldoon/r3x-rubix-create
+---
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: r3x-rubix-delete
+  namespace: default
+spec:
+  runLatest:
+    configuration:
+      revisionTemplate:
+        spec:
+          container:
+            image: docker.io/muldoon/r3x-rubix-delete
+---
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: r3x-rubix-dictate
+  namespace: default
+spec:
+  runLatest:
+    configuration:
+      revisionTemplate:
+        spec:
+          container:
+            image: docker.io/muldoon/r3x-rubix-dictate
+---
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: r3x-rubix-list
+  namespace: default
+spec:
+  runLatest:
+    configuration:
+      revisionTemplate:
+        spec:
+          container:
+            image: docker.io/muldoon/r3x-rubix-list
+---
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: r3x-rubix-frontend
+  namespace: default
+spec:
+  runLatest:
+    configuration:
+      revisionTemplate:
+        spec:
+          container:
+            image: docker.io/muldoon/r3x-rubix-frontend
