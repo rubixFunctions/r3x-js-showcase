@@ -10,6 +10,16 @@ spec:
         spec:
           container:
             image: docker.io/muldoon/r3x-rubix-create
+            env:
+              - name: GOOGLE_APPLICATION_CREDENTIALS
+                value: /var/secrets/google/credentials.json
+            volumeMounts:
+              - name: rubix-secret
+                mountPath: /var/secret
+          volumes:
+            - name: rubix-secret
+              secret:
+                secretName: app-key
 ---
 apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -23,6 +33,16 @@ spec:
         spec:
           container:
             image: docker.io/muldoon/r3x-rubix-delete
+            env:
+              - name: GOOGLE_APPLICATION_CREDENTIALS
+                value: /var/secrets/google/credentials.json
+            volumeMounts:
+              - name: rubix-secret
+                mountPath: /var/secret
+          volumes:
+            - name: rubix-secret
+              secret:
+                secretName: app-key
 ---
 apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -36,6 +56,16 @@ spec:
         spec:
           container:
             image: docker.io/muldoon/r3x-rubix-dictate
+            env:
+              - name: GOOGLE_APPLICATION_CREDENTIALS
+                value: /var/secrets/google/credentials.json
+            volumeMounts:
+              - name: rubix-secret
+                mountPath: /var/secret
+          volumes:
+            - name: rubix-secret
+              secret:
+                secretName: app-key
 ---
 apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -49,11 +79,21 @@ spec:
         spec:
           container:
             image: docker.io/muldoon/r3x-rubix-list
+            env:
+              - name: GOOGLE_APPLICATION_CREDENTIALS
+                value: /var/secrets/google/credentials.json
+            volumeMounts:
+              - name: rubix-secret
+                mountPath: /var/secret
+          volumes:
+            - name: rubix-secret
+              secret:
+                secretName: app-key
 ---
 apiVersion: serving.knative.dev/v1alpha1
 kind: Service
 metadata:
-  name: r3x-rubix-frontend
+  name: r3x-rubix-test
   namespace: default
 spec:
   runLatest:
@@ -61,4 +101,4 @@ spec:
       revisionTemplate:
         spec:
           container:
-            image: docker.io/muldoon/r3x-rubix-frontend
+            image: docker.io/muldoon/r3x-rubix-test
