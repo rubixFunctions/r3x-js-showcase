@@ -40,7 +40,7 @@ async function addClip(title, value) {
 
   
 	// Saves the entity
-	datastore.save(entity)
+	await datastore.save(entity)
 	let response = {'message' : `Task ${clipKey.id} created successfully.`}
 	return response 
   }
