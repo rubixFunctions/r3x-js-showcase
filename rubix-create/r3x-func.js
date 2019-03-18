@@ -40,7 +40,7 @@ async function addClip(title, value) {
 
   
 	// Saves the entity
-	await datastore.save(entity).then((boop) => console.log(boop)).catch((err) => {console.log(err)});
+	datastore.save(entity)
 	let response = {'message' : `Task ${clipKey.id} created successfully.`}
 	return response 
   }
@@ -50,7 +50,7 @@ r3x.execute(function(input){
 	if(input.title && input.value){
 		return addClip(input.title, input.value).catch(console.error);
 	}
-	let res = {'boop': 'something wong'}
+	let res = {'message': 'something wong'}
 	return res
 }, schema)
 
