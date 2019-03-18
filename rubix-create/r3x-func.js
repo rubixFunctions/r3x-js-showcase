@@ -3,10 +3,13 @@ const {Datastore} = require('@google-cloud/datastore');
 
 async function addClip(title, value) {
 	const projectId = 'r3x-showcase-42';
+
+	let cred = process.env.GOOGLE_APPLICATION_CREDENTIALS
   
 	// Creates a client
 	const datastore = new Datastore({
-	  projectId: projectId,
+		keyFilename: cred ,
+	  projectId: projectId
 	});
   
 	// The kind for the new entity
@@ -37,7 +40,7 @@ async function addClip(title, value) {
 
   
 	// Saves the entity
-	await datastore.save(entity);
+	await datastore.save(entity).then((boop) => console.log(boop)).catch((err) => {console.log(err)});
 	let response = {'message' : `Task ${clipKey.id} created successfully.`}
 	return response 
   }
@@ -47,6 +50,7 @@ r3x.execute(function(input){
 	if(input.title && input.value){
 		return addClip(input.title, input.value).catch(console.error);
 	}
-	let res = {'ERROR': 'Wrong Input Passed'}
+	let res = {'boop': 'something wong'}
 	return res
 }, schema)
+
