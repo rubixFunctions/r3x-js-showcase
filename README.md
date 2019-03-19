@@ -14,6 +14,7 @@ Run `r3x build -p -n <<your docker hub name>>` on the following directories:
 - rubix-delete
 - rubix-dictate
 - rubix-list
+
 This will build and push each function to your registry. Once complete replace the `image` field in `deployments/service.yaml` with your one image link. 
 
 ### Provision Google Services
@@ -22,7 +23,7 @@ The following services need to be provisioned. Click each service for guide.
 - [Google Storage](https://cloud.google.com/storage/docs/quickstart-console)
 
 ### Create Service Account
-A google service account is needed to allow our showcase interact with our google services. Follow this guide [here](https://developers.google.com/android/management/service-account) to create a new service account, and export the key in `JSON` format.
+A google service account is needed to allow our showcase interact with our google services. Follow this guide [here](https://developers.google.com/android/management/service-account) to create a new service account, ensure that it has roles to allow access to storage, datastore, compute and speech api, finally export the key in `JSON` format.
 
 ### Mount Secret
 We can now mount the servicce account key to the cluster:
@@ -99,20 +100,19 @@ Now that your service is created, Knative will perform the following steps:
 
 Run the following command to find the external IP address for your service. The ingress IP for your cluster is returned. If you just created your cluster, you might need to wait and rerun the command until your service get asssigned an external IP address.
 
-   ```shell
-   # In Knative 0.2.x and prior versions, the `knative-ingressgateway` service was used instead of `istio-ingressgateway`.
-   INGRESSGATEWAY=knative-ingressgateway
+```
+# In Knative 0.2.x and prior versions, the `knative-ingressgateway` service was used instead of `istio-ingressgateway`.
+INGRESSGATEWAY=knative-ingressgateway
 
-   # The use of `knative-ingressgateway` is deprecated in Knative v0.3.x.
-   # Use `istio-ingressgateway` instead, since `knative-ingressgateway`
-    # will be removed in Knative v0.4.
-    if kubectl get configmap config-istio -n knative-serving &> /dev/null; then
-        INGRESSGATEWAY=istio-ingressgateway
-    fi
+# The use of `knative-ingressgateway` is deprecated in Knative v0.3.x.
+# Use `istio-ingressgateway` instead, since `knative-ingressgateway`
+# will be removed in Knative v0.4.
+if kubectl get configmap config-istio -n knative-serving &> /dev/null; then
+    INGRESSGATEWAY=istio-ingressgateway
+fi
 
-    kubectl get svc $INGRESSGATEWAY --namespace istio-system
-    ```
-
+kubectl get svc $INGRESSGATEWAY --namespace istio-system
+```
     Example:
 
     ```shell
