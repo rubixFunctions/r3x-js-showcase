@@ -98,29 +98,28 @@ Now that your service is created, Knative will perform the following steps:
      for your app.
    - Automatically scale your pods up and down (including to zero active pods).
 
-Run the following command to find the external IP address for your service. The ingress IP for your cluster is returned. If you just created your cluster, you might need to wait and rerun the command until your service get asssigned an external IP address.
+1. To find the IP address for your service, use these commands to get the
+   ingress IP for your cluster. If your cluster is new, it may take sometime for
+   the service to get asssigned an external IP address.
 
-```
-# In Knative 0.2.x and prior versions, the `knative-ingressgateway` service was used instead of `istio-ingressgateway`.
-INGRESSGATEWAY=knative-ingressgateway
+   ```shell
+   # In Knative 0.2.x and prior versions, the `knative-ingressgateway` service was used instead of `istio-ingressgateway`.
+   INGRESSGATEWAY=knative-ingressgateway
 
-# The use of `knative-ingressgateway` is deprecated in Knative v0.3.x.
-# Use `istio-ingressgateway` instead, since `knative-ingressgateway`
-# will be removed in Knative v0.4.
-if kubectl get configmap config-istio -n knative-serving &> /dev/null; then
-    INGRESSGATEWAY=istio-ingressgateway
-fi
+   # The use of `knative-ingressgateway` is deprecated in Knative v0.3.x.
+   # Use `istio-ingressgateway` instead, since `knative-ingressgateway`
+   # will be removed in Knative v0.4.
+   if kubectl get configmap config-istio -n knative-serving &> /dev/null; then
+       INGRESSGATEWAY=istio-ingressgateway
+   fi
 
-kubectl get svc $INGRESSGATEWAY --namespace istio-system
-```
-    Example:
+   kubectl get svc $INGRESSGATEWAY --namespace istio-system
 
-    ```shell
-    NAME                     TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)                                      AGE
-    xxxxxxx-ingressgateway   LoadBalancer   10.23.247.74   35.203.155.229   80:32380/TCP,443:32390/TCP,32400:32400/TCP   2d
-    ```
+   NAME                     TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)                                      AGE
+   xxxxxxx-ingressgateway   LoadBalancer   10.23.247.74   35.203.155.229   80:32380/TCP,443:32390/TCP,32400:32400/TCP   2d
+   ```
 
-    Run the following command to find the domain URL for your service:
+1. To find the domain URL for your service, use
 
     ```shell
     kubectl get ksvc r3x-rubix-create --output=custom-columns=NAME:.metadata.name,DOMAIN:.status.domain
