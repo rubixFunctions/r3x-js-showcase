@@ -12,14 +12,14 @@ spec:
             image: docker.io/muldoon/r3x-rubix-create
             env:
               - name: GOOGLE_APPLICATION_CREDENTIALS
-                value: /var/secrets/r3x-showcase-42-1e7173f2bc74.json
+                value: /var/secret/rubix.json
             volumeMounts:
               - name: rubix-secret
                 mountPath: /var/secret
           volumes:
             - name: rubix-secret
               secret:
-                secretName: app-key
+                secretName: google-rubix-secret
 ---
 apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -35,14 +35,14 @@ spec:
             image: docker.io/muldoon/r3x-rubix-delete
             env:
               - name: GOOGLE_APPLICATION_CREDENTIALS
-                value: /var/secrets/r3x-showcase-42-1e7173f2bc74.json
+                value: /var/secret/rubix.json
             volumeMounts:
               - name: rubix-secret
                 mountPath: /var/secret
           volumes:
             - name: rubix-secret
               secret:
-                secretName: app-key
+                secretName: google-rubix-secret
 ---
 apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -58,14 +58,14 @@ spec:
             image: docker.io/muldoon/r3x-rubix-dictate
             env:
               - name: GOOGLE_APPLICATION_CREDENTIALS
-                value: /var/secrets/r3x-showcase-42-1e7173f2bc74.json
+                value: /var/secret/rubix.json
             volumeMounts:
               - name: rubix-secret
                 mountPath: /var/secret
           volumes:
             - name: rubix-secret
               secret:
-                secretName: app-key
+                secretName: google-rubix-secret
 ---
 apiVersion: serving.knative.dev/v1alpha1
 kind: Service
@@ -81,11 +81,11 @@ spec:
             image: docker.io/muldoon/r3x-rubix-list
             env:
               - name: GOOGLE_APPLICATION_CREDENTIALS
-                value: /var/secrets/r3x-showcase-42-1e7173f2bc74.json
+                value: /var/secret/rubix.json
             volumeMounts:
               - name: rubix-secret
                 mountPath: /var/secret
           volumes:
             - name: rubix-secret
               secret:
-                secretName: app-key
+                secretName: google-rubix-secret

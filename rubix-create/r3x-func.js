@@ -4,11 +4,8 @@ const {Datastore} = require('@google-cloud/datastore');
 async function addClip(title, value) {
 	const projectId = 'r3x-showcase-42';
 
-	let cred = process.env.GOOGLE_APPLICATION_CREDENTIALS
-  
 	// Creates a client
 	const datastore = new Datastore({
-		keyFilename: cred ,
 	  projectId: projectId
 	});
   
@@ -50,7 +47,7 @@ r3x.execute(function(input){
 	if(input.title && input.value){
 		return addClip(input.title, input.value).catch(console.error);
 	}
-	let res = {'message': 'something wong'}
+	let res = {'wrong input': input}
 	return res
 }, schema)
 
