@@ -131,7 +131,7 @@ Now that your service is created, Knative will perform the following steps:
     NAME                DOMAIN
     r3x-rubix-create      r3x-rubix-create.default.example.com
    ```
-Test your app by sending it a request. Use the following `curl` command with
+1. Test your app by sending it a request. Use the following `curl` command with
    the domain URL `secrets-go.default.example.com` and `EXTERNAL-IP` address
    that you retrieved in the previous steps:
 

@@ -3,4 +3,5 @@
 /rubix-create/node_modules
 /rubix-list/node_modules
 /rubix-delete/node_modules
-/rubix-list-buckets
+/rubix-api/node_modules
+/rubix-frontend/node_modules

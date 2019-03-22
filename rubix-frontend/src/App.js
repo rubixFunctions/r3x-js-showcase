@@ -49,23 +49,25 @@ class RubiXApp extends React.Component {
   updateListCallback(){
     this.getSoundClips();
   }
-
+  
   getSoundClips(){
     var options = { method: 'POST',
-      url: 'http://localhost:8083',
-      headers: 
-      {
-        'cache-control': 'no-cache',
-        'content-type': 'application/json' },
+      url: 'http://localhost:8081/list'
       };
     let _ = this;
-    request(options, function (error, response, body) {
-      if (error) throw new Error(error);
-        if(response.statusCode === 200){
-          let data = JSON.parse(body).clips
-          _.setState({soundClips: data})
-        }
-      });
+    return new Promise(function(resolve, reject) {
+        request(options, function(err, resp, body) {
+            if (err) {
+              reject(err);
+            } else {
+              console.log(body)
+              let data = JSON.parse(body).clips;
+              _.setState({soundClips: data})
+            }
+        }).catch(function(err){
+          console.log(err)
+        })
+    })
   }
 
   render() {
