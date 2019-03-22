@@ -27,24 +27,25 @@ class TextCreateInput extends React.Component {
     handleClick(e) {
       e.preventDefault();
       var options = { method: 'POST',
-      url: 'http://localhost:8081',
+      url: 'http://localhost:8081/create',
       headers: 
-      {
+      { 
         'cache-control': 'no-cache',
         'content-type': 'application/json' },
-      body:{
+      body: {
         title : "clip1",
         value : this.state.value
       },
       json: true };
-    let _ = this;
-    request(options, function (error, response, body) {
-      if (error) throw new Error(error);
-        if(response.statusCode === 200){
+      let _ = this;
+      request(options, function(err, resp, body) {
+      console.log(body)
           console.log('We got a response', body)
           _.props.updateListCallback();
-        }
-      });
+      
+      }).catch(function(err){
+        console.log(err)
+      })
       console.log('Convert Button Clicked ', this.state.value)
       this.setState({value: ''})
     }
