@@ -29,6 +29,14 @@ app.post('/delete', function (req, res) {
     })
 })
 
+app.post('/dictate', function (req, res) {
+    console.log(req.body)
+    var resp = dictate(req.body);
+    resp.then(function(result){
+        res.send(result)
+    })
+})
+
 function list(){
     var options = { method: 'POST',
       url: ingress,
@@ -101,6 +109,30 @@ function deleteCLip(id){
     }) 
 }
 
+function dictate(data){
+    var options = { method: 'POST',
+    url: ingress,
+    headers: 
+    {
+      'cache-control': 'no-cache',
+      'content-type': 'application/json',
+      'Host': 'r3x-rubix-dictate.default.example.com'  },
+    body:{
+        title : data.title,
+        value : data.value
+    },
+    json: true };
+  let _ = this;
+  return new Promise(function(resolve, reject){
+      request(options, function (error, response, body) {
+          if (error){
+              reject(error)
+          } else {
+              resolve(body)
+          }
+      }); 
+  }) 
+}
 var server = app.listen(8081, function () {
    var host = server.address().address
    var port = server.address().port

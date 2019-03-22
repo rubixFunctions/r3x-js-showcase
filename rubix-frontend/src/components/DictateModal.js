@@ -28,7 +28,7 @@ class DictateModal extends React.Component {
   
     handleDictate(data){
       var options = { method: 'POST',
-      url: 'http://localhost:8082',
+      url: 'http://localhost:8081/dictate',
       headers: 
       {
         'cache-control': 'no-cache',
