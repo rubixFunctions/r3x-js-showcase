@@ -5,6 +5,8 @@ var request = require('request-promise')
 
 app.use(bodyParser.json())
 
+var ingress = 'http://35.246.0.172'
+
 app.post('/list', function (req, res) {
    console.log("Got a POST request for the homepage");
    var resp = list();
@@ -20,9 +22,16 @@ app.post('/create', function (req, res) {
     })
 })
 
+app.post('/delete', function (req, res) {
+    var resp = deleteCLip(req.body.clipId);
+    resp.then(function(result){
+        res.send(result)
+    })
+})
+
 function list(){
     var options = { method: 'POST',
-      url: 'http://35.246.0.172',
+      url: ingress,
       headers: 
       {
         'Content-Type': 'application/json',
@@ -44,7 +53,7 @@ function list(){
 
 function create(clipName){
     var options = { method: 'POST',
-    url: 'http://35.246.0.172',
+    url: ingress,
     headers: 
     {
       'cache-control': 'no-cache',
@@ -65,6 +74,31 @@ function create(clipName){
         }
     });
   })
+}
+
+function deleteCLip(id){
+    var options = { method: 'POST',
+      url: ingress,
+      headers: 
+      {
+        'cache-control': 'no-cache',
+        'content-type': 'application/json',
+        'Host': 'r3x-rubix-delete.default.example.com'  },
+      body:{
+        clipId : id
+      },
+      json: true };
+    let _ = this;
+    return new Promise(function(resolve, reject){
+        request(options, function (error, response, body) {
+            if (error){
+                reject(error)
+            } else {
+                console.log(body)
+                resolve(body)
+            }
+        }); 
+    }) 
 }
 
 var server = app.listen(8081, function () {

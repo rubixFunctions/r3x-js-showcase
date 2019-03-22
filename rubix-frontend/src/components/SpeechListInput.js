@@ -25,7 +25,7 @@ class SpeechListInput extends React.Component {
   
     handleDeleteClick(data){
       var options = { method: 'POST',
-      url: 'http://localhost:8080',
+      url: 'http://localhost:8081/delete',
       headers: 
       {
         'cache-control': 'no-cache',
@@ -33,16 +33,14 @@ class SpeechListInput extends React.Component {
       body:{
         clipId : data.id
       },
-      json: true };
-    
-    let _ = this;
-    request(options, function (error, response, body) {
-      if (error) throw new Error(error);
-        if(response.statusCode === 200){
-          console.log('We got a response', body)
-          _.props.updateListCallback();
-        }
-      });
+      json: true
+      };
+      let _ = this;
+      request(options, function(err, resp, body) {
+        _.props.updateListCallback();
+      }).catch(function(err){
+        console.log(err)
+      })
     }
 
     buildList(){

@@ -55,18 +55,12 @@ class RubiXApp extends React.Component {
       url: 'http://localhost:8081/list'
       };
     let _ = this;
-    return new Promise(function(resolve, reject) {
-        request(options, function(err, resp, body) {
-            if (err) {
-              reject(err);
-            } else {
-              console.log(body)
-              let data = JSON.parse(body).clips;
-              _.setState({soundClips: data})
-            }
-        }).catch(function(err){
-          console.log(err)
-        })
+    request(options, function(err, resp, body) {
+      console.log(body)
+      let data = JSON.parse(body).clips;
+      _.setState({soundClips: data})
+    }).catch(function(err){
+      console.log(err)
     })
   }
 
