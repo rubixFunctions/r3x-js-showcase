@@ -19,7 +19,6 @@ import AboutRubix from './components/AboutRubix'
 
 const request = require('request-promise')
 
-
 class RubiXApp extends React.Component {
   constructor(props) {
     super(props);
@@ -42,24 +41,24 @@ class RubiXApp extends React.Component {
     });
   };
 
-  componentDidMount(){
+  componentDidMount() {
     this.getSoundClips();
   }
 
-  updateListCallback(){
+  updateListCallback() {
     this.getSoundClips();
   }
-  
-  getSoundClips(){
-    var options = { method: 'POST',
+
+  getSoundClips() {
+    var options = {
+      method: 'POST',
       url: 'http://localhost:8081/list'
-      };
+    };
     let _ = this;
-    request(options, function(err, resp, body) {
-      console.log(body)
+    request(options, function (err, resp, body) {
       let data = JSON.parse(body).clips;
-      _.setState({soundClips: data})
-    }).catch(function(err){
+      _.setState({ soundClips: data })
+    }).catch(function (err) {
       console.log(err)
     })
   }
@@ -102,7 +101,7 @@ class RubiXApp extends React.Component {
         showNavToggle
       />
     );
-    const Sidebar = <PageSidebar nav={PageNav}/>;
+    const Sidebar = <PageSidebar nav={PageNav} />;
 
     const fStyle = {
       float: 'right'
@@ -119,8 +118,8 @@ class RubiXApp extends React.Component {
               <AboutRubix />
             </TextContent>
           </PageSection>
-            <TextCreateInput updateListCallback={this.updateListCallback}/>
-            <SpeechListInput soundClips={this.state.soundClips} updateListCallback={this.updateListCallback}/>
+          <TextCreateInput updateListCallback={this.updateListCallback} />
+          <SpeechListInput soundClips={this.state.soundClips} updateListCallback={this.updateListCallback} />
           <PageSection variant={PageSectionVariants.darker}>
             <Text style={fStyle} component={TextVariants.p}>Powered By RubiX & Knative</Text>
           </PageSection>

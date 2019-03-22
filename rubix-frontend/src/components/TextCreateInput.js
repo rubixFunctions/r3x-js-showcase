@@ -40,13 +40,11 @@ class TextCreateInput extends React.Component {
       let _ = this;
       request(options, function(err, resp, body) {
       console.log(body)
-          console.log('We got a response', body)
           _.props.updateListCallback();
       
       }).catch(function(err){
         console.log(err)
       })
-      console.log('Convert Button Clicked ', this.state.value)
       this.setState({value: ''})
     }
   
