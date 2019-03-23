@@ -50,18 +50,34 @@ class RubiXApp extends React.Component {
   }
 
   getSoundClips() {
-    var options = {
-      method: 'POST',
-      url: 'http://localhost:8081/list'
-    };
     let _ = this;
-    request(options, function (err, resp, body) {
-      let data = JSON.parse(body).clips;
-      _.setState({ soundClips: data })
-    }).catch(function (err) {
-      console.log(err)
+    let data = this.list()
+    data.then(function(result){
+      _.setState({soundClips: JSON.parse(result).clips})
     })
   }
+
+  list() {
+    var options = {
+        method: 'POST',
+        url: 'http://r3x-rubix-list.default.35.197.208.7.xip.io',
+        headers:
+        {
+            'Content-Type': 'application/json'
+        },
+    };
+    return new Promise(function (resolve, reject) {
+        request(options, function (err, resp, body) {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(body)
+            }
+        }).catch(function (err) {
+            console.log(err)
+        })
+    })
+}
 
   render() {
     const PageNav = (
