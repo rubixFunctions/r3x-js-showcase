@@ -26,29 +26,38 @@ class DictateModal extends React.Component {
   }
 
   handleDictate(data) {
-    var options = {
-      method: 'POST',
-      url: 'http://localhost:8081/dictate',
-      headers:
-      {
-        'cache-control': 'no-cache',
-        'content-type': 'application/json'
-      },
-      body: {
-        title: data.title,
-        value: data.clip
-      },
-      json: true
-    };
-
-    let _ = this
-    request(options, function (error, response, body) {
-      if (error) throw new Error(error);
-      if (response.statusCode === 200) {
-        _.setState({ url: body.url })
-      }
+    let _ = this;
+    let resp = this.dictate(data);
+    resp.then(function(result){
+      _.setState({ url: result.url })
     }).then(() => _.toggleModal());
   }
+
+  dictate(data) {
+    var options = {
+        method: 'POST',
+        url: 'http://r3x-rubix-dictate.default.35.197.208.7.xip.io',
+        headers:
+        {
+            'cache-control': 'no-cache',
+            'content-type': 'application/json'
+        },
+        body: {
+            title: data.title,
+            value: data.clip
+        },
+        json: true
+    };
+    return new Promise(function (resolve, reject) {
+        request(options, function (error, response, body) {
+            if (error) {
+                reject(error)
+            } else {
+                resolve(body)
+            }
+        });
+    })
+}
 
   render() {
     const { isModalOpen } = this.state;
