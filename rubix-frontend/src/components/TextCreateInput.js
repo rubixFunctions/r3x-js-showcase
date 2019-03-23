@@ -49,7 +49,6 @@ class TextCreateInput extends React.Component {
           },
           json: true
       };
-      let _ = this;
       return new Promise(function (resolve, reject) {
           request(options, function (err, resp, body) {
               if (err) {

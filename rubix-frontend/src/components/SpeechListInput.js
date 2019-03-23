@@ -23,26 +23,37 @@ class SpeechListInput extends React.Component {
   }
 
   handleDeleteClick(data) {
-    var options = {
-      method: 'POST',
-      url: 'http://localhost:8081/delete',
-      headers:
-      {
-        'cache-control': 'no-cache',
-        'content-type': 'application/json'
-      },
-      body: {
-        clipId: data.id
-      },
-      json: true
-    };
     let _ = this;
-    request(options, function (err, resp, body) {
+    let resp = this.deleteCLip(data.id);
+    resp.then(function (result){
       _.props.updateListCallback();
-    }).catch(function (err) {
-      console.log(err)
     })
   }
+
+  deleteCLip(id) {
+    var options = {
+        method: 'POST',
+        url: 'http://r3x-rubix-delete.default.35.197.208.7.xip.io',
+        headers:
+        {
+            'cache-control': 'no-cache',
+            'content-type': 'application/json'
+        },
+        body: {
+            clipId: id
+        },
+        json: true
+    };
+    return new Promise(function (resolve, reject) {
+        request(options, function (error, response, body) {
+            if (error) {
+                reject(error)
+            } else {
+                resolve(body)
+            }
+        });
+    })
+}
 
   buildList() {
     return this.props.soundClips.map((data) => {
