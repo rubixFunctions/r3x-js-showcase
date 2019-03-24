@@ -168,6 +168,15 @@ To find the external IP run the following, note it may take a few minutes to be 
 ```
 $ kubectl get service
 ```
+If you wish to scale the web app run the following:
+```
+$ kubectl scale deployment rubix-web --replicas=3
+```
+You can see the new replicas running on your cluster by running the following commands:
+```
+$ kubectl get deployment rubix-web
+$ kubectl get pods
+```
 
 ### TroubleShooting
 If you are still having trouble making off-cluster calls, you can verify that
