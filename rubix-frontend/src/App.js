@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   BackgroundImage,
+  Bullseye,
   Nav,
   NavGroup,
   NavItem,
@@ -9,8 +10,6 @@ import {
   PageSection,
   PageSectionVariants,
   PageSidebar,
-  Progress, 
-  ProgressMeasureLocation, 
   TextContent,
   Text,
   TextVariants,
@@ -18,6 +17,7 @@ import {
 import TextCreateInput from './components/TextCreateInput'
 import SpeechListInput from './components/SpeechListInput'
 import AboutRubix from './components/AboutRubix'
+import loading from './assets/images/loading.png'
 
 const request = require('request-promise')
 
@@ -72,7 +72,14 @@ class RubiXApp extends React.Component {
     let content = <div></div>
     if (this.state.isProgressOpen) {
       content = <PageSection variant={PageSectionVariants.default}>
-        <Progress value={33} title="Beep Boop Boop" measureLocation={ProgressMeasureLocation.inside} />
+      <Bullseye>
+        <img src={loading} alt="Loading" width="50" height="20"/>
+      </Bullseye>
+      <Bullseye>
+        <TextContent>
+          <Text component={TextVariants.h3}>Executing Function</Text>
+        </TextContent>
+      </Bullseye>
       </PageSection>
     }
     return content;
