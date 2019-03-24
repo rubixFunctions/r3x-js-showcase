@@ -1,0 +1,91 @@
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: r3x-rubix-create
+  namespace: default
+spec:
+  runLatest:
+    configuration:
+      revisionTemplate:
+        spec:
+          container:
+            image: docker.io/muldoon/r3x-rubix-create
+            env:
+              - name: GOOGLE_APPLICATION_CREDENTIALS
+                value: /var/secret/rubix.json
+            volumeMounts:
+              - name: rubix-secret
+                mountPath: /var/secret
+          volumes:
+            - name: rubix-secret
+              secret:
+                secretName: google-rubix-secret
+---
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: r3x-rubix-delete
+  namespace: default
+spec:
+  runLatest:
+    configuration:
+      revisionTemplate:
+        spec:
+          container:
+            image: docker.io/muldoon/r3x-rubix-delete
+            env:
+              - name: GOOGLE_APPLICATION_CREDENTIALS
+                value: /var/secret/rubix.json
+            volumeMounts:
+              - name: rubix-secret
+                mountPath: /var/secret
+          volumes:
+            - name: rubix-secret
+              secret:
+                secretName: google-rubix-secret
+---
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: r3x-rubix-dictate
+  namespace: default
+spec:
+  runLatest:
+    configuration:
+      revisionTemplate:
+        spec:
+          container:
+            image: docker.io/muldoon/r3x-rubix-dictate
+            env:
+              - name: GOOGLE_APPLICATION_CREDENTIALS
+                value: /var/secret/rubix.json
+            volumeMounts:
+              - name: rubix-secret
+                mountPath: /var/secret
+          volumes:
+            - name: rubix-secret
+              secret:
+                secretName: google-rubix-secret
+---
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: r3x-rubix-list
+  namespace: default
+spec:
+  runLatest:
+    configuration:
+      revisionTemplate:
+        spec:
+          container:
+            image: docker.io/muldoon/r3x-rubix-list
+            env:
+              - name: GOOGLE_APPLICATION_CREDENTIALS
+                value: /var/secret/rubix.json
+            volumeMounts:
+              - name: rubix-secret
+                mountPath: /var/secret
+          volumes:
+            - name: rubix-secret
+              secret:
+                secretName: google-rubix-secret

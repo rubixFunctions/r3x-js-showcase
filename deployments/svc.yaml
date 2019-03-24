@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: r3x-rubix-app
+spec:
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: r3x-rubix-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rubix-app
+  template:
+    metadata:
+      labels:
+        app: rubix-app
+    spec:
+      containers:
+        - image: docker.io/muldoon/r3x-rubix-frontend
+          name: frontend

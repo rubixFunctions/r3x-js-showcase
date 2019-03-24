@@ -19,7 +19,6 @@ import AboutRubix from './components/AboutRubix'
 
 const request = require('request-promise')
 
-
 class RubiXApp extends React.Component {
   constructor(props) {
     super(props);
@@ -42,31 +41,43 @@ class RubiXApp extends React.Component {
     });
   };
 
-  componentDidMount(){
+  componentDidMount() {
     this.getSoundClips();
   }
 
-  updateListCallback(){
+  updateListCallback() {
     this.getSoundClips();
   }
 
-  getSoundClips(){
-    var options = { method: 'POST',
-      url: 'http://localhost:8083',
-      headers: 
-      {
-        'cache-control': 'no-cache',
-        'content-type': 'application/json' },
-      };
+  getSoundClips() {
     let _ = this;
-    request(options, function (error, response, body) {
-      if (error) throw new Error(error);
-        if(response.statusCode === 200){
-          let data = JSON.parse(body).clips
-          _.setState({soundClips: data})
-        }
-      });
+    let data = this.list()
+    data.then(function(result){
+      _.setState({soundClips: JSON.parse(result).clips})
+    })
   }
+
+  list() {
+    var options = {
+        method: 'POST',
+        url: 'http://r3x-rubix-list.default.35.246.108.94.xip.io',
+        headers:
+        {
+            'Content-Type': 'application/json'
+        },
+    };
+    return new Promise(function (resolve, reject) {
+        request(options, function (err, resp, body) {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(body)
+            }
+        }).catch(function (err) {
+            console.log(err)
+        })
+    })
+}
 
   render() {
     const PageNav = (
@@ -106,7 +117,7 @@ class RubiXApp extends React.Component {
         showNavToggle
       />
     );
-    const Sidebar = <PageSidebar nav={PageNav}/>;
+    const Sidebar = <PageSidebar nav={PageNav} />;
 
     const fStyle = {
       float: 'right'
@@ -123,8 +134,8 @@ class RubiXApp extends React.Component {
               <AboutRubix />
             </TextContent>
           </PageSection>
-            <TextCreateInput updateListCallback={this.updateListCallback}/>
-            <SpeechListInput soundClips={this.state.soundClips} updateListCallback={this.updateListCallback}/>
+          <TextCreateInput updateListCallback={this.updateListCallback} />
+          <SpeechListInput soundClips={this.state.soundClips} updateListCallback={this.updateListCallback} />
           <PageSection variant={PageSectionVariants.darker}>
             <Text style={fStyle} component={TextVariants.p}>Powered By RubiX & Knative</Text>
           </PageSection>

@@ -76,6 +76,6 @@ r3x.execute(function(input){
 	if(input.title && input.value){
 		return dictate(input.value, input.title) 
 	}
-	let res = {'ERROR': 'Wrong Input Passed'}
+	let res = {'INPUT ERROR': input}
 	return res
 }, schema)

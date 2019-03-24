@@ -15,6 +15,6 @@
 		"dependencies": {
 				"@google-cloud/storage": "^2.4.2",
 				"@google-cloud/text-to-speech": "^0.5.1",
-				"@rubixfunctions/r3x-js-sdk": "0.0.12"
+				"@rubixfunctions/r3x-js-sdk": "0.0.14"
 		}
 }

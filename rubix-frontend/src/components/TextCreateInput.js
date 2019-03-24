@@ -26,28 +26,39 @@ class TextCreateInput extends React.Component {
   
     handleClick(e) {
       e.preventDefault();
-      var options = { method: 'POST',
-      url: 'http://localhost:8081',
-      headers: 
-      {
-        'cache-control': 'no-cache',
-        'content-type': 'application/json' },
-      body:{
-        title : "clip1",
-        value : this.state.value
-      },
-      json: true };
-    let _ = this;
-    request(options, function (error, response, body) {
-      if (error) throw new Error(error);
-        if(response.statusCode === 200){
-          console.log('We got a response', body)
-          _.props.updateListCallback();
-        }
-      });
-      console.log('Convert Button Clicked ', this.state.value)
+      let _ = this;
+      let resp = this.create(this.state.value);
+      resp.then(function (result) {
+        _.props.updateListCallback();
+      })
       this.setState({value: ''})
     }
+
+    create(clipName) {
+      var options = {
+          method: 'POST',
+          url: 'http://r3x-rubix-create.default.35.246.108.94.xip.io',
+          headers:
+          {
+              'cache-control': 'no-cache',
+              'content-type': 'application/json'
+          },
+          body: {
+              title: "clip1",
+              value: clipName
+          },
+          json: true
+      };
+      return new Promise(function (resolve, reject) {
+          request(options, function (err, resp, body) {
+              if (err) {
+                  reject(err);
+              } else {
+                  resolve(body)
+              }
+          });
+      })
+  }
   
     render(){
       const { value } = this.state;

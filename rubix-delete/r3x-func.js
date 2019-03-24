@@ -22,7 +22,7 @@ r3x.execute(function(input){
 	if (input.clipId){
 		return deleteClip(input.clipId)
 	} 
-	let response = {'ERROR' : 'WRONG INPUT'}
+	let response = {'WRONG INPUT' : input}
 	return response 
 
 }, schema)

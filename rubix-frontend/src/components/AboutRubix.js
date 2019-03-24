@@ -1,5 +1,5 @@
 import React from 'react';
-import { AboutModal, Button, TextContent, TextList, TextListItem} from '@patternfly/react-core';
+import { AboutModal, Button, TextContent, TextList, TextListItem } from '@patternfly/react-core';
 import { InfoAltIcon } from '@patternfly/react-icons';
 
 class AboutRubix extends React.Component {
