@@ -60,7 +60,7 @@ class RubiXApp extends React.Component {
   list() {
     var options = {
         method: 'POST',
-        url: 'http://r3x-rubix-list.default.35.197.208.7.xip.io',
+        url: 'http://r3x-rubix-list.default.35.246.108.94.xip.io',
         headers:
         {
             'Content-Type': 'application/json'

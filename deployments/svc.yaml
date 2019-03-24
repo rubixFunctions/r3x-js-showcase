@@ -1,37 +1,27 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: r3x-rubix-create
+  name: r3x-rubix-app
 spec:
   ports:
   - protocol: TCP
-    port: 8080
-    targetPort: 8080
+    port: 80
+    targetPort: 80
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: r3x-rubix-create
+  name: r3x-rubix-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rubix-create
+      app: rubix-app
   template:
     metadata:
       labels:
-        app: rubix-create
+        app: rubix-app
     spec:
-      volumes:
-        - name: robot-secret
-          secret:
-            secretName: google-robot-secret
       containers:
-        - image: docker.io/muldoon/r3x-rubix-create:something
-          name: boop
-          env:
-            - name: GOOGLE_APPLICATION_CREDENTIALS
-              value: /var/secret/robot.json
-          volumeMounts:
-            - name: robot-secret
-              mountPath: /var/secret
+        - image: docker.io/muldoon/r3x-rubix-frontend
+          name: frontend

@@ -83,7 +83,21 @@ value is set to `*`.
 
 If an invalid value is passed, `''` is used instead.
 
-### Deployment
+### Workaround for CORS
+In order to allow our services be accessable from the browser we must use `xip.io`
+
+```
+# Get Cluster IP address
+export IP_ADDRESS=$(kubectl get svc istio-ingressgateway -n istio-system -ojsonpath='{.status.loadBalancer.ingress[0].ip}')
+
+# Configure Knative to use xip.io as domain suffix
+kubectl patch cm -n knative-serving config-domain  \
+  --type merge \
+  -p "{\"data\":{\"$IP_ADDRESS.xip.io\":\"\"}}"
+
+```
+
+### Deploy Knative Services
 Apply
    the configuration using `kubectl`:
 
@@ -129,16 +143,31 @@ Now that your service is created, Knative will perform the following steps:
 
     ```shell
     NAME                DOMAIN
-    r3x-rubix-create      r3x-rubix-create.default.example.com
+    r3x-rubix-create      http://r3x-rubix-create.default.35.246.108.94.xip.io
    ```
-1. Test your app by sending it a request. Use the following `curl` command with
-   the domain URL `secrets-go.default.example.com` and `EXTERNAL-IP` address
-   that you retrieved in the previous steps:
 
-   ```shell
-   curl -X --date '{"title":"message","value":"hello rubix"}' "Host: r3x-rubix-create.default.example.com" http://{EXTERNAL_IP_ADDRESS}
-   ```
-   You should receive a success response, and the entry should be placed in your datastore.
+### Deploy Frontend
+Get all Domain names to the Knative Services, update frontend app and run:
+
+```
+$ r3x build -p -n <<your docker user name>>
+```
+With the frontend built and pushed to a registry run the following command
+```
+$ kubectl run rubix-web --image=docker.io/<<your docker user name>>/r3x-rubix-frontend --port 80
+```
+Check the pod is running correctly
+```
+$ kubectl get pods 
+```
+Expose the pod to the Internets, by running the following:
+```
+$ kubectl expose deployment rubix-web --type=LoadBalancer --port 80 --target-port 80
+```
+To find the external IP run the following, note it may take a few minutes to be allocated an IP address
+```
+$ kubectl get service
+```
 
 ### TroubleShooting
 If you are still having trouble making off-cluster calls, you can verify that
