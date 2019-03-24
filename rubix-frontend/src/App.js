@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   BackgroundImage,
+  Bullseye,
   Nav,
   NavGroup,
   NavItem,
@@ -16,6 +17,7 @@ import {
 import TextCreateInput from './components/TextCreateInput'
 import SpeechListInput from './components/SpeechListInput'
 import AboutRubix from './components/AboutRubix'
+import loading from './assets/images/loading.png'
 
 const request = require('request-promise')
 
@@ -24,6 +26,7 @@ class RubiXApp extends React.Component {
     super(props);
     this.state = {
       isKebabDropdownOpen: false,
+      isProgressOpen: false,
       soundClips: []
     };
     this.updateListCallback = this.updateListCallback.bind(this)
@@ -50,11 +53,36 @@ class RubiXApp extends React.Component {
   }
 
   getSoundClips() {
+    this.toggleProgress();
     let _ = this;
     let data = this.list()
     data.then(function(result){
+      _.toggleProgress();
       _.setState({soundClips: JSON.parse(result).clips})
     })
+  }
+
+  toggleProgress = () => {
+    this.setState(({ isProgressOpen }) => ({
+      isProgressOpen: !isProgressOpen
+    }));
+  }
+
+  renderProgress = () => {
+    let content = <div></div>
+    if (this.state.isProgressOpen) {
+      content = <PageSection variant={PageSectionVariants.default}>
+      <Bullseye>
+        <img src={loading} alt="Loading" width="50" height="20"/>
+      </Bullseye>
+      <Bullseye>
+        <TextContent>
+          <Text component={TextVariants.h3}>Executing Function</Text>
+        </TextContent>
+      </Bullseye>
+      </PageSection>
+    }
+    return content;
   }
 
   list() {
@@ -134,8 +162,9 @@ class RubiXApp extends React.Component {
               <AboutRubix />
             </TextContent>
           </PageSection>
-          <TextCreateInput updateListCallback={this.updateListCallback} />
-          <SpeechListInput soundClips={this.state.soundClips} updateListCallback={this.updateListCallback} />
+          {this.renderProgress()}
+          <TextCreateInput updateListCallback={this.updateListCallback} toggleProgress={this.toggleProgress} />
+          <SpeechListInput soundClips={this.state.soundClips} updateListCallback={this.updateListCallback} toggleProgress={this.toggleProgress} />
           <PageSection variant={PageSectionVariants.darker}>
             <Text style={fStyle} component={TextVariants.p}>Powered By RubiX & Knative</Text>
           </PageSection>

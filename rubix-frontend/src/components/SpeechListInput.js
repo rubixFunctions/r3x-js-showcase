@@ -23,9 +23,11 @@ class SpeechListInput extends React.Component {
   }
 
   handleDeleteClick(data) {
+    this.props.toggleProgress();
     let _ = this;
     let resp = this.deleteCLip(data.id);
     resp.then(function (result){
+      _.props.toggleProgress();
       _.props.updateListCallback();
     })
   }
@@ -62,7 +64,7 @@ class SpeechListInput extends React.Component {
           <span id="data._id">{data.clip}</span>
         </DataListCell>
         <DataListCell>
-          <DictateModal data={data} /><Button variant="danger" onClick={this.handleDeleteClick.bind(this, data)}>Delete</Button>
+          <DictateModal data={data} toggleProgress={this.props.toggleProgress} /><Button variant="danger" onClick={this.handleDeleteClick.bind(this, data)}>Delete</Button>
         </DataListCell>
       </DataListItem>
     })

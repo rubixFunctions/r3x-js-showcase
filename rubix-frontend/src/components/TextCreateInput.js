@@ -26,9 +26,11 @@ class TextCreateInput extends React.Component {
   
     handleClick(e) {
       e.preventDefault();
+      this.props.toggleProgress();
       let _ = this;
       let resp = this.create(this.state.value);
       resp.then(function (result) {
+        _.props.toggleProgress();
         _.props.updateListCallback();
       })
       this.setState({value: ''})

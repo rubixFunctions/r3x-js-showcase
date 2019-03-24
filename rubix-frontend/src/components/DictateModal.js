@@ -26,9 +26,11 @@ class DictateModal extends React.Component {
   }
 
   handleDictate(data) {
+    this.props.toggleProgress();
     let _ = this;
     let resp = this.dictate(data);
     resp.then(function(result){
+      _.props.toggleProgress();
       _.setState({ url: result.url })
     }).then(() => _.toggleModal());
   }
